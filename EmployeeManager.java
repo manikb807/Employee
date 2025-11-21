@@ -24,7 +24,6 @@ public class EmployeeManager {
 
     // MAIN PROGRAM
     public static void main(String[] args) {
-
         // Argument validation
         if (args.length != 1) {
             System.out.println(Constants.ERROR_ARGUMENTS);
@@ -76,8 +75,11 @@ public class EmployeeManager {
             System.out.println("Loading data ...");
             try {
                 String[] employees = readEmployees();
-                System.out.println(employees.length + " word(s) | "
-                        + String.join(",", employees).length() + " characters");
+
+                int wordCount = employees.length;
+
+                int charCount = String.join(",", employees).length();
+                System.out.println(wordCount + " word(s) | " + charCount + " characters");
             } catch (Exception e) {
             }
             System.out.println("Data Loaded.");
