@@ -61,9 +61,14 @@ public class EmployeeManager {
         } else if (args[0].contains("?")) {
             System.out.println("Loading data ...");
             try {
+                String searchName = args[0].substring(1);
                 boolean found = Arrays.stream(readEmployees())
-                        .anyMatch(emp -> emp.trim().equals(args[0].substring(1)));
-                System.out.println(found ? "Employee found!" : "Employee NOT found.");
+                        .map(String::trim)
+                        .anyMatch(emp -> emp.equals(searchName));
+
+                System.out.println(found
+                        ? "Employee \"" + searchName + "\" found!"
+                        : "Employee \"" + searchName + "\" NOT found.");
             } catch (Exception e) {
             }
             System.out.println("Data Loaded.");
@@ -81,11 +86,13 @@ public class EmployeeManager {
             try {
                 String[] employees = readEmployees();
                 String nameInput = args[0].substring(1);
+
                 for (int i = 0; i < employees.length; i++) {
                     if (employees[i].trim().equals(nameInput)) {
                         employees[i] = "Updated";
                     }
                 }
+
                 writeEmployees(String.join(",", employees));
             } catch (Exception e) {
             }
